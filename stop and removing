@@ -1,0 +1,112 @@
+oot@TRC:~# cd /
+root@TRC:/# ls
+bin   cdrom  dev  home  lib32  libx32      media  opt   root  sbin  srv       sys  usr
+boot  debug  etc  lib   lib64  lost+found  mnt    proc  run   snap  swapfile  tmp  var
+root@TRC:/# cd home
+root@TRC:/home# ls
+trc
+root@TRC:/home# cd trc
+root@TRC:/home/trc# ls
+Desktop  Documents  Downloads  Music  Pictures  Public  Sabeer  snap  Templates  Videos
+root@TRC:/home/trc# cd Videos
+root@TRC:/home/trc/Videos# ls
+AnyDesk  devops  docker
+root@TRC:/home/trc/Videos# cd docker
+root@TRC:/home/trc/Videos/docker# ls
+Dockerfile  node_modules  package.json  package-lock.json  server.js  styles.css
+root@TRC:/home/trc/Videos/docker# netstat -tulnp | grep 3000
+tcp        0      0 0.0.0.0:3000            0.0.0.0:*               LISTEN      373587/docker-proxy 
+tcp6       0      0 :::3000                 :::*                    LISTEN      373594/docker-proxy 
+root@TRC:/home/trc/Videos/docker# docker ps
+CONTAINER ID   IMAGE          COMMAND                  CREATED          STATUS          PORTS                                   NAMES
+0405ae3d87f9   0b961a88a4e6   "docker-entrypoint.s…"   13 minutes ago   Up 13 minutes   0.0.0.0:3000->80/tcp, :::3000->80/tcp   objective_mayer
+root@TRC:/home/trc/Videos/docker# docker stop 0405ae3d87f9
+0405ae3d87f9
+root@TRC:/home/trc/Videos/docker# docker rm 0405ae3d87f9
+0405ae3d87f9
+root@TRC:/home/trc/Videos/docker# netstat -tulnp | grep 3000
+root@TRC:/home/trc/Videos/docker# docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+root@TRC:/home/trc/Videos/docker# docker images
+REPOSITORY   TAG       IMAGE ID       CREATED          SIZE
+<none>       <none>    0b961a88a4e6   27 minutes ago   1.13GB
+node         latest    3e5a8e2bd5a4   3 days ago       1.12GB
+root@TRC:/home/trc/Videos/docker# docker rm 0b961a88a4e6
+Error response from daemon: No such container: 0b961a88a4e6
+root@TRC:/home/trc/Videos/docker# docker images rm 0b961a88a4e6
+"docker images" requires at most 1 argument.
+See 'docker images --help'.
+
+Usage:  docker images [OPTIONS] [REPOSITORY[:TAG]]
+
+List images
+root@TRC:/home/trc/Videos/docker# docker images rm 0b961a88a4e6
+"docker images" requires at most 1 argument.
+See 'docker images --help'.
+
+Usage:  docker images [OPTIONS] [REPOSITORY[:TAG]]
+
+List images
+root@TRC:/home/trc/Videos/docker# docker image 0b961a88a4e6
+
+Usage:  docker image COMMAND
+
+Manage images
+
+Commands:
+  build       Build an image from a Dockerfile
+  history     Show the history of an image
+  import      Import the contents from a tarball to create a filesystem image
+  inspect     Display detailed information on one or more images
+  load        Load an image from a tar archive or STDIN
+  ls          List images
+  prune       Remove unused images
+  pull        Download an image from a registry
+  push        Upload an image to a registry
+  rm          Remove one or more images
+  save        Save one or more images to a tar archive (streamed to STDOUT by default)
+  tag         Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE
+
+Run 'docker image COMMAND --help' for more information on a command.
+root@TRC:/home/trc/Videos/docker# docker image rm 0b961a88a4e6
+Deleted: sha256:0b961a88a4e6f06a9cc4937ac416da06ba9dcb436dbcc6e5c4f47104a8fdfce3
+Deleted: sha256:75f0395cb65818efa2ebe2b783d5f6b8162082ffc64ff5348da6ead8486a2777
+Deleted: sha256:aede56fe2facb19647ba4d35a66fbcb4236637bdd995c1bf4e859415796fb887
+Deleted: sha256:5a370cd907798738bcbaddddc539e25068b6169a18b70389e27387e729b516cb
+Deleted: sha256:b968543ff00d43e7bbead2c6024f9279a447bb6c2d7a9eb5bf24778c1c57a35d
+Deleted: sha256:d385d16125e76abfb646ef653cfadc1fe79311300177781cb1b191d61dd723b6
+Deleted: sha256:2d6fc67eee5422812a8fdd8888e6fbc40cb647329bb9911bc487306ab9102912
+Deleted: sha256:264148df4b584e3790f5fa108c9cf856c1c3d66698fc6f7481c92380e2193bf0
+root@TRC:/home/trc/Videos/docker# docker images
+REPOSITORY   TAG       IMAGE ID       CREATED      SIZE
+node         latest    3e5a8e2bd5a4   3 days ago   1.12GB
+root@TRC:/home/trc/Videos/docker# docker image rm 3e5a8e2bd5a4
+Error response from daemon: conflict: unable to delete 3e5a8e2bd5a4 (must be forced) - image is being used by stopped container e38c10e12052
+root@TRC:/home/trc/Videos/docker# docker ps -a
+CONTAINER ID   IMAGE          COMMAND                  CREATED          STATUS                      PORTS     NAMES
+e38c10e12052   3e5a8e2bd5a4   "docker-entrypoint.s…"   29 minutes ago   Exited (0) 29 minutes ago             suspicious_wozniak
+root@TRC:/home/trc/Videos/docker# docker rm e38c10e12052
+e38c10e12052
+root@TRC:/home/trc/Videos/docker# docker container prune
+WARNING! This will remove all stopped containers.
+Are you sure you want to continue? [y/N] y
+Total reclaimed space: 0B
+root@TRC:/home/trc/Videos/docker# docker images
+REPOSITORY   TAG       IMAGE ID       CREATED      SIZE
+node         latest    3e5a8e2bd5a4   3 days ago   1.12GB
+root@TRC:/home/trc/Videos/docker# docker image rm 3e5a8e2bd5a4
+Untagged: node:latest
+Untagged: node@sha256:e940261391ab78a883bbcfba448bcbb6d36803053f67017e6e270ef095f213ca
+Deleted: sha256:3e5a8e2bd5a475bc04d964a4f3714038ed6fe06fae8791a16c1df525b1e48ef2
+Deleted: sha256:939a729d0b98cd216709cd90bcf8f556090125d9783d2cd5ea5fad55d697728e
+Deleted: sha256:6c49f471ad93f227f957cd97975cb5e78aa8ccab110d3c076cebfaf0fc3d0824
+Deleted: sha256:de2faf93f681142a407b449c52fef353bcb35407c700989812be1f1bb1b376b1
+Deleted: sha256:d402e46e13b867844ebe79923b973ec04c68e8ba243a0656bbd9a71838316f04
+Deleted: sha256:19499b1b05655fb8dfdb97d2d70be8a37d8be186b2ee54195d38973451b642c3
+Deleted: sha256:61c887cfa58ed480aa22fc34dbb933dd29538b13aab89847e071e5253d40e2d6
+Deleted: sha256:70c8762a14802e4ea0362748fca2ae2593b7866d954f915bae51cae1fa436297
+Deleted: sha256:01c9a2a5f23727d0aab91da9d479286e25780d50b574f1a9df47ca850a88b591
+root@TRC:/home/trc/Videos/docker# docker images
+REPOSITORY   TAG       IMAGE ID   CREATED   SIZE
+root@TRC:/home/trc/Videos/docker# 
+
